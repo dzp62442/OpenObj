@@ -1,3 +1,50 @@
+## 1 环境配置
+
+```shell
+# 仅包含基本环境，还需要手动安装后面的 CropFormer、TAP 和 SBERT 
+conda create -n openobj python=3.8.15
+conda activate openobj
+pip install functorch==0.2.0
+pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+pip install -r requirements.txt
+```
+
+注意事项：
+1. functorch 0.2.0 依赖 PyTorch 1.x，与 PyTorch 2.x 不兼容，因此首先单独安装 functorch 0.2.0，再覆盖安装 PyTorch 2.x
+2. requirements.txt 中安装了 spacy，但是没有安装模型，需要手动安装 `python -m spacy download en_core_web_sm`
+3. 安装 TAP 需要安装 flash-attn，自己编译轮子太慢，使用[官方发布](https://github.com/Dao-AILab/flash-attention/releases)的预编译轮子 `flash_attn-2.6.3+cu118torch2.0cxx11abiFALSE-cp38-cp38-linux_x86_64.whl`
+4. README 中没说但是要下载 [Grounded-Segment-Anything](https://github.com/IDEA-Research/Grounded-Segment-Anything) 和预训练模型 `sam_vit_h_4b8939.pth`
+5. 从 PyTorch 2.0 开始，functorch 逐渐弃用，参考[官方文档](https://pytorch.ac.cn/docs/stable/func.migrating.html)
+
+
+## 2 运行
+
+1. Object Segmentation and Understanding：从彩色图像中识别和理解对象实例，包括 CropFormer、TAP 和 CLIP
+```shell
+python3 maskclustering/mask_gen.py  --input data/vmap/room_0/imap/00/rgb/*.png --input_depth data/vmap/room_0/imap/00/depth/*.png --output results/room_0/mask/ --opts MODEL.WEIGHTS ../OpenObj_third_parties/CropFormer_hornet_3x_03823a.pth 
+```
+2. Mask Clustering：确保跨帧的对象关联一致
+```shell
+python3 maskclustering/mask_graph.py --config_file maskclustering/config/room_0.yaml --input_mask results/room_0/mask/mask_init_all.pkl --input_depth data/vmap/room_0/imap/00/depth/*.png --input_pose  data/vmap/room_0/imap/00/traj_w_c.txt --output_graph results/room_0/mask/graph/ --input_rgb data/vmap/room_0/imap/00/rgb/*.png --output_dir data/vmap/room_0/imap/00/ --input_semantic data/vmap/room_0/imap/00/semantic_class/*.png 
+```
+3. Part-level Fine-Grained Feature Extraction：区分零件并提取其视觉特征
+```shell
+python partlevel/sam_clip_dir.py --input_image data/vmap/room_0/imap/00/rgb/*.png --output_dir data/vmap/room_0/imap/00/partlevel --down_sample 5
+```
+4. NeRF Rendering and Training：为所有对象进行 NeRF 训练
+```shell
+python objnerf/train.py --config objnerf/configs/Replica/room_0.json --logdir results/room_0
+```
+5. Visualization：
+```shell
+# 生成用于可视化的文件
+python visualization/gen_map_vis.py --scene_name room_0 --dataset_name Replica
+# 使用可视化文件进行交互
+python visualization/vis_interaction.py --scene_name room_0 --dataset_name Replica --is_partcolor
+```
+
+------
+
 <p align="center">
 <h1 align="center"><strong> OpenObj: Open-Vocabulary Object-Level Neural Radiance Fields with Fine-Grained Understanding</strong></h1>
 </p>
