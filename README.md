@@ -16,7 +16,6 @@ pip install -r requirements.txt
 4. README 中没说但是要下载 [Grounded-Segment-Anything](https://github.com/IDEA-Research/Grounded-Segment-Anything) 和预训练模型 `sam_vit_h_4b8939.pth`
 5. 从 PyTorch 2.0 开始，functorch 逐渐弃用，参考[官方文档](https://pytorch.ac.cn/docs/stable/func.migrating.html)
 
-
 ## 2 运行
 
 1. Object Segmentation and Understanding：从彩色图像中识别和理解对象实例，包括 CropFormer、TAP 和 CLIP
