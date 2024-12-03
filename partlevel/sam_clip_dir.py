@@ -4,7 +4,7 @@ import argparse
 import torch
 import clip
 import sys
-sys.path.append("/home/dyn/multimodal/Grounded-Segment-Anything/segment_anything")
+sys.path.append("/home/dzp62442/Projects/OpenObj_third_parties/Grounded-Segment-Anything/segment_anything")
 from segment_anything.automatic_mask_generator import SamAutomaticMaskGenerator
 from segment_anything import sam_model_registry
 from PIL import Image
@@ -29,7 +29,7 @@ def args_getter():
 
 #对每个图片进行mask提取
 def mask_getter(image:np.ndarray):
-    sam_checkpoint = "/data/dyn/weights/sam_vit_h_4b8939.pth"
+    sam_checkpoint = "/home/dzp62442/Projects/OpenObj_third_parties/sam_vit_h_4b8939.pth"
     model_type = "vit_h"
     device = "cuda"
     sam = sam_model_registry[model_type](checkpoint=sam_checkpoint)

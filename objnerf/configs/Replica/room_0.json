@@ -1,7 +1,7 @@
 {
     "dataset": {
         "live": 0,
-        "path": "/data/dyn/object/vmap/room_0/imap/00",
+        "path": "data/vmap/room_0/imap/00",
         "format": "Replica",
         "keep_alive": 20
     },
@@ -73,7 +73,7 @@
         "save_mesh": 1,
         "vis_device": "cuda:0",
         "bg_id": [0,2,3],
-        "n_vis_iter": 9999,
+        "n_vis_iter": 135,
         "eps_fine_vis": 0.1,
         "n_bins_fine_vis": 10,
         "im_vis_reduce": 10,

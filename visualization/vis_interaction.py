@@ -2,7 +2,7 @@
 将得到的地图可视化并实现查询等
 """
 import sys
-sys.path.append("/code1/dyn/github_repos/OpenObj/objnerf")
+sys.path.append("/home/dzp62442/Projects/OpenObj/objnerf")
 import vis
 from cfg import Config
 import copy
@@ -52,15 +52,15 @@ def main():
     scene_name = args.scene_name
     dataset_name = args.dataset_name
     is_partcolor = args.is_partcolor
-    log_dir = '/data/dyn/results/object/results/vMAP/'+scene_name
-    config_file = '/code/dyn/object_map/vMAP/configs/'+dataset_name+'/'+scene_name+'.json'
+    log_dir = 'results/'+scene_name
+    config_file = 'objnerf/configs/'+dataset_name+'/'+scene_name+'.json'
     cfg = Config(config_file)       # config params
     result_path = log_dir+'/map_vis.pkl.gz'
     
     
     # 读取 YAML 文件，得到mapping的semantic
     if dataset_name == "Replica":
-        with open('./replica_color.yaml', 'r') as file:
+        with open('visualization/replica_color.yaml', 'r') as file:
             data = yaml.safe_load(file)
         # 提取第一个字典
         mapping_dict = data["mapping"]
@@ -71,7 +71,7 @@ def main():
         all_obj = pickle.load(f)
     # 必须要有sbert模型哦
     print("Initializing SBERT model...")
-    sbert_model = SentenceTransformer("/home/dyn/multimodal/SBERT/pretrained/model/all-MiniLM-L6-v2")
+    sbert_model = SentenceTransformer("/home/dzp62442/Projects/OpenObj_third_parties/all-MiniLM-L6-v2")
     sbert_model = sbert_model.to("cuda")
     print("Done initializing SBERT model.")
     # 还有clip模型

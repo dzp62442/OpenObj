@@ -1,7 +1,7 @@
 {
     "dataset": {
         "live": 0,
-        "path": "/data/dyn/object/vmap/office_0/imap/00",
+        "path": "data/office_0/imap/00",
         "format": "Replica",
         "keep_alive": 20
     },

@@ -140,7 +140,7 @@ if __name__ == "__main__":
     print("class_clipfeat:", class_clipfeat.shape)
     
     # SBERT文本编码器
-    sbert_model = SentenceTransformer('/home/dyn/multimodal/SBERT/pretrained/model/all-MiniLM-L6-v2')
+    sbert_model = SentenceTransformer('/home/dzp62442/Projects/OpenObj_third_parties/all-MiniLM-L6-v2')
     class_capfeat = sbert_model.encode(class_names, convert_to_tensor=True, device="cuda")
     class_capfeat /= class_capfeat.norm(dim=-1, keepdim=True)
     class_capfeat = class_capfeat.cpu().numpy()

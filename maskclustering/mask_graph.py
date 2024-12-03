@@ -19,7 +19,7 @@ import matplotlib.cm as cm
 from networkx.algorithms.community import greedy_modularity_communities, girvan_newman
 import community
 from datetime import datetime
-sys.path.append('/code/dyn/object_map/third_parites/')
+sys.path.append('/home/dzp62442/Projects/OpenObj_third_parties/')
 from natsort import natsorted
 from omegaconf import DictConfig
 from sentence_transformers import SentenceTransformer, util
@@ -201,7 +201,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description="mask_graph demo for mask_graph generation.")
     parser.add_argument(
         "--config_file",
-        default="/code/dyn/object_map/maskcluster/configs/replica.yaml",
+        default="/home/dzp62442/Projects/OpenObj/maskcluster/configs/replica.yaml",
         metavar="FILE",
         help="path to config file",
     )
@@ -901,7 +901,7 @@ if __name__=="__main__":
         cfg = yaml.safe_load(f)
         
     # 一些预定义的caption，用来判断是不是墙面等
-    sbert_model = SentenceTransformer('/home/dyn/multimodal/SBERT/pretrained/model/all-MiniLM-L6-v2')
+    sbert_model = SentenceTransformer('/home/dzp62442/Projects/OpenObj_third_parties/all-MiniLM-L6-v2')
     # room1
     captions_wall = cfg["captions_wall"]
     captions_floor = cfg["captions_floor"]

@@ -2,7 +2,7 @@
 这个用来生成用于可视化的地图
 '''
 import sys
-sys.path.append("/code1/dyn/github_repos/OpenObj/objnerf")
+sys.path.append("/home/dzp62442/Projects/OpenObj/objnerf")
 import time
 import loss
 from vmap import *
@@ -50,8 +50,8 @@ if __name__ == "__main__":
 
     scene_name = args.scene_name
     dataset_name = args.dataset_name
-    log_dir = '/data/dyn/results/object/results/vMAP/'+scene_name
-    config_file = '/code/dyn/object_map/vMAP/configs/'+dataset_name+'/'+scene_name+'.json'
+    log_dir = 'results/'+scene_name
+    config_file = 'objnerf/configs/'+dataset_name+'/'+scene_name+'.json'
     os.makedirs(log_dir, exist_ok=True)  # saving logs
     shutil.copy(config_file, log_dir)
     cfg = Config(config_file)       # config params
@@ -94,14 +94,14 @@ if __name__ == "__main__":
             
     # 读取 YAML 文件，得到mapping的semantic
     if dataset_name == "Replica":
-        with open('./replica_color.yaml', 'r') as file:
+        with open('visualization/replica_color.yaml', 'r') as file:
             data = yaml.safe_load(file)
         # 提取第一个字典
         mapping_dict = data["mapping"]
         mapped_color = data["mapped_colors"]
     # 读取 YAML 文件，得到mapping的semantic
     elif dataset_name == "Scannet":
-        with open('./scannet_color.yaml', 'r') as file:
+        with open('visualization/scannet_color.yaml', 'r') as file:
             data = yaml.safe_load(file)
         # 提取第一个字典
         mapping_dict = data["order"]

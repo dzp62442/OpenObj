@@ -9,10 +9,9 @@ from natsort import natsorted
 # fmt: off
 import sys
 # sys.path.insert(1, os.path.join(sys.path[0], '..'))
-sys.path.append('/code/dyn/object_map/third_parites/')
-sys.path.append('/code/dyn/object_map/third_parites/detectron2/')
-sys.path.append('/code/dyn/object_map/third_parites/detectron2/projects/CropFormer/')
-# sys.path.append('/code/dyn/object_map/third_parites/detectron2/projects/CropFormer/')
+sys.path.append('/home/dzp62442/Projects/OpenObj_third_parties/')
+sys.path.append('/home/dzp62442/Projects/OpenObj_third_parties/detectron2/')
+sys.path.append('/home/dzp62442/Projects/OpenObj_third_parties/detectron2/projects/CropFormer/')
 
 # fmt: on
 
@@ -78,7 +77,7 @@ def get_parser():
     parser = argparse.ArgumentParser(description="maskformer2 demo for builtin configs")
     parser.add_argument(
         "--config-file",
-        default="/code/dyn/object_map/third_parites/detectron2/projects/CropFormer/configs/entityv2/entity_segmentation/cropformer_hornet_3x.yaml",
+        default="/home/dzp62442/Projects/OpenObj_third_parties/detectron2/projects/CropFormer/configs/entityv2/entity_segmentation/cropformer_hornet_3x.yaml",
         metavar="FILE",
         help="path to config file",
     )
@@ -375,13 +374,13 @@ if __name__ == "__main__":
     ######################################################
     # 使用tap模型和图像创建分割器
     model_type = "tap_vit_l"
-    checkpoint = "/home/dyn/outdoor/tokenize-anything/weights/tap_vit_l_03f8ec.pkl"
+    checkpoint = "/home/dzp62442/Projects/OpenObj_third_parties/tap_vit_l_v1_0.pkl"
     tap_model = model_registry[model_type](checkpoint=checkpoint)
-    concept_weights = "/home/dyn/outdoor/tokenize-anything/weights/merged_2560.pkl"
+    concept_weights = "/home/dzp62442/Projects/OpenObj_third_parties/merged_2560.pkl"
     tap_model.concept_projector.reset_weights(concept_weights)
     tap_model.text_decoder.reset_cache(max_batch_size=1000)
     # SBERT文本编码器
-    sbert_model = SentenceTransformer('/home/dyn/multimodal/SBERT/pretrained/model/all-MiniLM-L6-v2')
+    sbert_model = SentenceTransformer('/home/dzp62442/Projects/OpenObj_third_parties/all-MiniLM-L6-v2')
     # NLP用于提取主干
     nlp = spacy.load("en_core_web_sm")
     
