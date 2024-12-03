@@ -107,9 +107,10 @@ if __name__ == "__main__":
     # 加载语义参数配置文件
     class_names = []
     if cfg.dataset_format == "Replica":
-        parter_dir = os.path.dirname(os.path.dirname(os.path.dirname(cfg.dataset_dir)))
+        # parter_dir = os.path.dirname(os.path.dirname(os.path.dirname(cfg.dataset_dir)))
+        parter_dir = cfg.dataset_dir
         with open(parter_dir+'/render_config.yaml', 'r') as file:
-            data = yaml.safe_load(file)
+            data = yaml.unsafe_load(file)
             # 提取classes中所有children的name
         class_names = [item['name']  for item in data['classes']]
     elif cfg.dataset_format == "ScanNet":
