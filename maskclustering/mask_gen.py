@@ -422,7 +422,8 @@ if __name__ == "__main__":
         point_score = batch_points[:, 0, 2].__eq__(2).__sub__(0.5)[:, None]
         rank_scores = iou_pred + point_score * ([1000] + [0] * (iou_pred.shape[1] - 1))
         mask_index = np.arange(rank_scores.shape[0]), rank_scores.argmax(1)
-        sem_tokens = outputs["sem_tokens"][mask_index].unsqueeze_(1)
+        # sem_tokens = outputs["sem_tokens"][mask_index].unsqueeze_(1)
+        sem_tokens = outputs["sem_tokens"][mask_index]
         captions = tap_model.generate_text(sem_tokens)
         # 提取主干
         new_captions = []
